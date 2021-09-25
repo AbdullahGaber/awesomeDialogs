@@ -3,10 +3,15 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 
 class FlareHeader extends StatelessWidget {
-  const FlareHeader({Key? key, required this.dialogType, required this.loop})
-      : super(key: key);
+  const FlareHeader({
+    Key? key,
+    required this.dialogType,
+    required this.loop,
+    this.headerColor,
+  }) : super(key: key);
   final DialogType dialogType;
   final bool loop;
+  final Color? headerColor;
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +21,7 @@ class FlareHeader extends StatelessWidget {
           "packages/awesome_dialog/assets/flare/info2.flr",
           alignment: Alignment.center,
           fit: BoxFit.cover,
+          color: headerColor,
           animation: loop ? 'appear_loop' : 'appear',
           callback: (call) {},
         );
@@ -26,6 +32,7 @@ class FlareHeader extends StatelessWidget {
               : "packages/awesome_dialog/assets/flare/info_without_loop.flr",
           alignment: Alignment.center,
           fit: BoxFit.cover,
+          color: headerColor,
           animation: 'appear',
         );
       case DialogType.QUESTION:
@@ -33,6 +40,7 @@ class FlareHeader extends StatelessWidget {
           "packages/awesome_dialog/assets/flare/question.flr",
           alignment: Alignment.center,
           fit: BoxFit.cover,
+          color: headerColor,
           animation: loop ? 'anim_loop' : 'anim',
           callback: (call) {},
         );
@@ -43,6 +51,7 @@ class FlareHeader extends StatelessWidget {
               : "packages/awesome_dialog/assets/flare/warning_without_loop.flr",
           alignment: Alignment.center,
           fit: BoxFit.cover,
+          color: headerColor,
           animation: 'appear',
         );
       case DialogType.ERROR:
@@ -50,6 +59,7 @@ class FlareHeader extends StatelessWidget {
           "packages/awesome_dialog/assets/flare/error.flr",
           alignment: Alignment.center,
           fit: BoxFit.fill,
+          color: headerColor,
           animation: loop ? 'Error' : 'Error_no_loop',
         );
       case DialogType.SUCCES:
@@ -59,6 +69,7 @@ class FlareHeader extends StatelessWidget {
               : "packages/awesome_dialog/assets/flare/succes_without_loop.flr",
           alignment: Alignment.center,
           fit: BoxFit.fill,
+          color: headerColor,
           animation: 'Untitled',
         );
       default:

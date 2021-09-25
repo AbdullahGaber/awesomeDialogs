@@ -10,7 +10,15 @@ export 'src/animated_button.dart';
 export 'src/anims/flare_header.dart';
 export 'src/anims/anims.dart';
 
-enum DialogType { INFO, INFO_REVERSED, WARNING, ERROR, SUCCES, QUESTION, NO_HEADER }
+enum DialogType {
+  INFO,
+  INFO_REVERSED,
+  WARNING,
+  ERROR,
+  SUCCES,
+  QUESTION,
+  NO_HEADER
+}
 enum AnimType { SCALE, LEFTSLIDE, RIGHSLIDE, BOTTOMSLIDE, TOPSLIDE }
 enum DismissType { BTN_OK, BTN_CANCEL, TOP_ICON, OTHER }
 
@@ -90,6 +98,9 @@ class AwesomeDialog {
   ///Max with of entire Dialog.
   final double? width;
 
+  /// header Color
+  final Color? headerColor;
+
   ///Border Radius for built in buttons.
   final BorderRadiusGeometry? buttonsBorderRadius;
 
@@ -144,6 +155,7 @@ class AwesomeDialog {
     this.dialogBackgroundColor,
     this.borderSide,
     this.buttonsTextStyle,
+    this.headerColor,
   });
 
   bool isDissmisedBySystem = false;
@@ -191,6 +203,7 @@ class AwesomeDialog {
     if (dialogType == DialogType.NO_HEADER) return null;
     return FlareHeader(
       loop: headerAnimationLoop,
+      headerColor: headerColor,
       dialogType: this.dialogType,
     );
   }
@@ -211,7 +224,8 @@ class AwesomeDialog {
           width: width,
           padding: padding ?? const EdgeInsets.only(left: 5, right: 5),
           btnOk: btnOk ?? (btnOkOnPress != null ? _buildFancyButtonOk : null),
-          btnCancel: btnCancel ?? (btnCancelOnPress != null ? _buildFancyButtonCancel : null),
+          btnCancel: btnCancel ??
+              (btnCancelOnPress != null ? _buildFancyButtonCancel : null),
           showCloseIcon: this.showCloseIcon,
           onClose: () {
             _dismissType = DismissType.TOP_ICON;
@@ -250,7 +264,8 @@ class AwesomeDialog {
       );
 
   dismiss() {
-    if (!isDissmisedBySystem) Navigator.of(context, rootNavigator: useRootNavigator).pop();
+    if (!isDissmisedBySystem)
+      Navigator.of(context, rootNavigator: useRootNavigator).pop();
   }
 
   Future<bool> _onWillPop() async => dismissOnBackKeyPress;
